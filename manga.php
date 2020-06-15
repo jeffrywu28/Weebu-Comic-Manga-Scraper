@@ -1,6 +1,9 @@
 <?php
 include('simple_html_dom.php');
 $html = file_get_html($_GET['manga']);
+session_start();
+$_SESSION["url"] = $_GET['manga'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +60,6 @@ $html = file_get_html($_GET['manga']);
 </head>
 
 <body style="background-color: black;">
-    <!--NavBar-->
     <!--NavBar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,7 +136,7 @@ $html = file_get_html($_GET['manga']);
                         <?php
                         foreach ($html->find('ul.row-content-chapter li') as $chapter) {
                             echo '<tr> 
-                            <td class="chaptername">' . $chapter->find('a', 0)->plaintext . '</td>
+                            <td class="chaptername"> <a href="chapter.php?ch='.$chapter->find('a', 0)->plaintext.'">' . $chapter->find('a', 0)->plaintext . '</td>
                             <td class="uploaded">' . $chapter->find('span', 0)->plaintext . '</td>
                             </tr>';
                         }
@@ -144,7 +146,7 @@ $html = file_get_html($_GET['manga']);
             </div>
         </div>
     </div>
-
+    <!-- end of main -->
 
 
 </body>
