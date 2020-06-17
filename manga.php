@@ -144,7 +144,7 @@ $html = file_get_html($_GET['manga']);
                         <?php
                         foreach ($html->find('ul.row-content-chapter li') as $chapter) {
                             echo '<tr> 
-                            <td class="chaptername">' . $chapter->find('a', 0)->plaintext . '</td>
+                            <td class="chaptername"> <a href="viewmanga.php?chap='.$chapter->find('a', 0)->plaintext.'&url='.$_GET['manga'].'">' . $chapter->find('a', 0)->plaintext . '</a></td>
                             <td class="uploaded">' . $chapter->find('span', 0)->plaintext . '</td>
                             </tr>';
                         }
