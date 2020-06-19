@@ -29,15 +29,6 @@ $html = file_get_html("https://myanimelist.net/topmanga.php?type=favorite");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
-        $(document).ready(function() {
-            var e = document.getElementsByTagName('a')[0];
-
-            var d = document.createElement('div');
-            d.innerHTML = e.innerHTML;
-
-            e.parentNode.insertBefore(d, e);
-            e.parentNode.removeChild(e);
-        });
     </script>
     <style>
         body {
@@ -94,7 +85,8 @@ $html = file_get_html("https://myanimelist.net/topmanga.php?type=favorite");
         .lazyload {
             opacity: 0;
         }
-        .card-body{
+
+        .card-body {
             margin: 0 auto;
             padding-top: 0;
             color: white;
@@ -104,18 +96,24 @@ $html = file_get_html("https://myanimelist.net/topmanga.php?type=favorite");
 </head>
 
 <body>
-    <!-- NavBar -->
+    <!--NavBar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item disabled">
+                    <div class="navbar-brand">Wibu Comic</div>
+                </li>
                 <li class="nav-item active">
-                    <a class="navbar-brand" href="index.php" id="active-page">Home</a>
+                    <a class="navbar-brand" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#">Genre</a>
+                    <a class="navbar-brand" href="genre/viewallgenre.php">Genre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#" id="active-page">Top Manga</a>
                 </li>
             </ul>
         </div>
@@ -138,7 +136,7 @@ $html = file_get_html("https://myanimelist.net/topmanga.php?type=favorite");
     </nav>
 
     <!-- tabel untuk data komik -->
-    <div style="margin: 5em;">
+    <div style="margin: 5em; padding: 15%; padding-top: 0;">
         <table class="table table-striped table-borderless" style="border-bottom-style: none;">
             <thead>
                 <tr style="background-color: cyan; text-align: center;">
@@ -170,7 +168,7 @@ $html = file_get_html("https://myanimelist.net/topmanga.php?type=favorite");
                                             <div class="card-body">
                                                 <!-- <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="manga.php?manga=<?php echo $element->href; ?>"> -->
                                                 <!-- <h5 class="card-title"></h5> -->
-                                                <?php echo strip_tags($element, "<div>")?>
+                                                <?php echo strip_tags($element, "<div>") ?>
                                                 <!-- </a> -->
                                                 <p class="card-text"></p>
                                             </div>
