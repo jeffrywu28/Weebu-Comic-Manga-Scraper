@@ -1,44 +1,44 @@
 <?php
 // Include config file
 require_once "database.php";
- 
+
 // Define variables and initialize with empty values
 $username = $userid = $password = $confirm_password = "";
 $username_err = $userid_err = $password_err = $confirm_password_err = "";
- 
+
 // Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // Validate username
-    if(empty(trim($_POST["username"]))){
+    if (empty(trim($_POST["username"]))) {
         $userid_err = "Please enter a username.";
-    } elseif(strlen(trim($_POST["username"])) < 6 || strlen(trim($_POST["username"])) > 20){
+    } elseif (strlen(trim($_POST["username"])) < 6 || strlen(trim($_POST["username"])) > 20) {
         $userid_err = "Username or ID must have atleast 6 characters and below 20 characters.";
-    } else{
+    } else {
         // Prepare a select statement
         $sql = "SELECT id FROM account_user WHERE user_id = ?";
-        
-        if($stmt = mysqli_prepare($link, $sql)){
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_userid);
-            
+
             // Set parameters
             $param_userid = trim($_POST["username"]);
-            
+
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if (mysqli_stmt_execute($stmt)) {
                 /* store result */
                 mysqli_stmt_store_result($stmt);
-                
-                if(mysqli_stmt_num_rows($stmt) == 1){
+
+                if (mysqli_stmt_num_rows($stmt) == 1) {
                     $userid_err = "This username is already taken.";
-                } else{
+                } else {
                     $userid = test_input($_POST["username"]);
-                    if(!preg_match("/^[a-zA-Z0-9]*$/",$userid)){
+                    if (!preg_match("/^[a-zA-Z0-9]*$/", $userid)) {
                         $userid_err = "Username or ID only number, normal letters and capital letters";
                     }
                 }
-            } else{
+            } else {
                 echo "Oops! Something went wrong. Please try again later.";
             }
 
@@ -48,63 +48,62 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate name
-    if(empty(trim($_POST["name"]))){
-        $username_err = "Please enter a Name.";     
-    } elseif(strlen(trim($_POST["name"])) < 6 || strlen(trim($_POST["name"])) > 20){
+    if (empty(trim($_POST["name"]))) {
+        $username_err = "Please enter a Name.";
+    } elseif (strlen(trim($_POST["name"])) < 6 || strlen(trim($_POST["name"])) > 20) {
         $username_err = "Name must have atleast 6 characters and below 20 characters.";
-    } else{
+    } else {
         $username = test_input($_POST["name"]);
-        if(!preg_match("/^[a-zA-Z0-9]*$/",$username)){
+        if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
             $username_err = "Name only number, normal letters and capital letters";
         }
     }
-    
+
     // Validate password
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter a password.";     
-    } elseif(strlen(trim($_POST["password"])) < 6){
+    if (empty(trim($_POST["password"]))) {
+        $password_err = "Please enter a password.";
+    } elseif (strlen(trim($_POST["password"])) < 6) {
         $password_err = "Password must have atleast 6 characters.";
-    } else{
+    } else {
         $password = test_input($_POST["password"]);
-        if(!preg_match("/^[a-zA-Z0-9]*$/",$password)){
+        if (!preg_match("/^[a-zA-Z0-9]*$/", $password)) {
             $password_err = "Password only number, normal letters and capital letters";
         }
     }
-    
+
     // Validate confirm password
-    if(empty(trim($_POST["confirm_password"]))){
-        $confirm_password_err = "Please confirm password.";     
-    } else{
+    if (empty(trim($_POST["confirm_password"]))) {
+        $confirm_password_err = "Please confirm password.";
+    } else {
         $confirm_password = test_input($_POST["confirm_password"]);
-        if(!preg_match("/^[a-zA-Z0-9]*$/",$confirm_password)){
+        if (!preg_match("/^[a-zA-Z0-9]*$/", $confirm_password)) {
             $confirm_password_err = "Confirm password only number, normal letters and capital letters";
-        }
-        elseif(empty($password_err) && ($password != $confirm_password)){
+        } elseif (empty($password_err) && ($password != $confirm_password)) {
             $confirm_password_err = "Password did not match.";
         }
     }
-    
-    
+
+
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($userid_err) && empty($password_err) && empty($confirm_password_err)){
-        
+    if (empty($username_err) && empty($userid_err) && empty($password_err) && empty($confirm_password_err)) {
+
         // Prepare an insert statement
         $sql = "INSERT INTO account_user (id, user_id, user_password, user_name, user_status) VALUES (0, ?, ?, ?, 'member')";
-         
-        if($stmt = mysqli_prepare($link, $sql)){
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "sss", $param_userid, $param_password, $param_username);
-            
+
             // Set parameters
             $param_userid = $userid;
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-            
+
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if (mysqli_stmt_execute($stmt)) {
                 // Redirect to login page
                 header("location: login.php");
-            } else{
+            } else {
                 echo "Something went wrong. Please try again later.";
             }
 
@@ -112,12 +111,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_close($stmt);
         }
     }
-    
+
     // Close connection
     mysqli_close($link);
 }
 
-function test_input($data){
+function test_input($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
@@ -125,9 +125,10 @@ function test_input($data){
 }
 
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -158,14 +159,18 @@ function test_input($data){
         }
     </style>
 </head>
+
 <body>
-<!--NavBar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!--NavBar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item disabled">
+                    <div class="navbar-brand">Wibu Comic</div>
+                </li>
                 <li class="nav-item active">
                     <a class="navbar-brand" href="../index.php">Home</a>
                 </li>
@@ -201,7 +206,7 @@ function test_input($data){
                 <label>Name</label>
                 <input type="text" name="name" class="form-control" value="<?php echo $username; ?>">
                 <span class="help-block"><?php echo $username_err; ?></span>
-            </div>    
+            </div>
             <div class="form-group <?php echo (!empty($userid_err)) ? 'has-error' : ''; ?>">
                 <label>Username or ID</label>
                 <input type="text" name="username" class="form-control" value="<?php echo $userid; ?>">
@@ -223,6 +228,7 @@ function test_input($data){
             </div>
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
-    </div>    
+    </div>
 </body>
+
 </html>

@@ -131,6 +131,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item disabled">
+                    <div class="navbar-brand">Wibu Comic</div>
+                </li>
                 <li class="nav-item active">
                     <a class="navbar-brand" href="../index.php">Home</a>
                 </li>
