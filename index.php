@@ -50,6 +50,9 @@ $html = file_get_html('https://m.mangabat.com/manga-list-all?type=topview');
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+        <li class="nav-item disabled">
+          Wibu Comic
+        </li>
         <li class="nav-item active">
           <a class="navbar-brand" href="index.php" id="active-page">Home</a>
         </li>
@@ -62,6 +65,17 @@ $html = file_get_html('https://m.mangabat.com/manga-list-all?type=topview');
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown" id="secret">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Account
+        </a>
+        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item btn btn-dark" style="color:grey" href="account/login.php">Login</a>
+          <a class="dropdown-item btn btn-dark" style="color:grey" href="account/register.php">Register</a>
+        </div>
+      </li>
+    </ul>
     </div>
   </nav>
 
@@ -74,7 +88,7 @@ $html = file_get_html('https://m.mangabat.com/manga-list-all?type=topview');
     ?>
       <div class="col-md-3" style="margin: 0 auto;">
         <div class="card text-center" style="width: 200px; margin: 0 auto;">
-          <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="manga.php?manga=<?php echo $element->href; ?>" >
+          <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="manga.php?manga=<?php echo $element->href; ?>">
             <img src="<?php echo $element->children(0)->src; ?>" class="card-img-top">
             <h5><?php echo $element->title; ?></h5>
           </a>

@@ -90,28 +90,38 @@ $html = file_get_html($_GET['manga']);
                 <div class="col-md-auto">
                     <?php foreach ($html->find('div.story-info-right') as $element) { ?>
                         <div class="card-body">
-                            <h3 class="card-title"><?php echo $element->children(0)->plaintext; ?></h3>
-                            <table>
-                                <tr>
-                                    <th>Author(s): <?php echo $element->children(1)->first_child()->children(1)->last_child()->plaintext; ?>
-                                    <th>
+                            <h3 class="card-title"><?php echo $element->children(0)->plaintext.'</h3>';
+                            if (is_null($element->children(1)->first_child()->children(3))) {
+                            echo '<table>';
+                            echo '<tr>';
+                                echo '<th>Author(s): ' . $element->children(1)->first_child()->children(0)->last_child()->plaintext . '</th>';
+                            echo '</tr>';
+                            echo '<tr>';
+                                echo '<th>Status :' . $element->children(1)->first_child()->children(1)->last_child()->plaintext . '</th>';
+                            echo '</tr>';
+                            echo '<tr>';
+                                echo '<th>Genres:' . $element->children(1)->first_child()->children(2)->last_child()->plaintext . '</th>';
+                            echo '</tr>';
+                            } else {
+                            echo '<table>';
+                            echo '<tr>';
+                                echo '<th>Author(s): ' . $element->children(1)->first_child()->children(1)->last_child()->plaintext . '</th>';
+                            echo '</tr>';
+                            echo '<tr>';
+                                echo '<th>Status :' . $element->children(1)->first_child()->children(2)->last_child()->plaintext . '</th>';
+                            echo '</tr>';
+                            echo '<tr>';
+                                echo '<th>Genres:' . $element->children(1)->first_child()->children(3)->last_child()->plaintext . '</th>';
+                            echo '</tr>';
+                            }
+                        }
+                                foreach ($html->find('div.story-info-right-extent') as $element) { ?>
                                 </tr>
                                 <tr>
-                                    <th>Status : <?php echo $element->children(1)->first_child()->children(2)->last_child()->plaintext; ?>
-                                    <th>
+                                    <th>First Chapter: <?php echo $element->children(2)->last_child()->plaintext; ?></th>
                                 </tr>
                                 <tr>
-                                    <th>Genres: <?php echo $element->children(1)->first_child()->children(3)->last_child()->plaintext; ?>
-                                    <th> <?php }
-                                        foreach ($html->find('div.story-info-right-extent') as $element) { ?>
-                                </tr>
-                                <tr>
-                                    <th>First Chapter: <?php echo $element->children(2)->last_child()->plaintext; ?>
-                                    <th>
-                                </tr>
-                                <tr>
-                                    <th>Last Chapter: <?php echo $element->children(3)->last_child()->plaintext; ?>
-                                    <th>
+                                    <th>Last Chapter: <?php echo $element->children(3)->last_child()->plaintext; ?></th>
                                 </tr> <?php } ?>
                             </table>
                         </div>
@@ -134,7 +144,7 @@ $html = file_get_html($_GET['manga']);
                         <?php
                         foreach ($html->find('ul.row-content-chapter li') as $chapter) {
                             echo '<tr> 
-                            <td class="chaptername">' . $chapter->find('a', 0)->plaintext . '</td>
+                            <td class="chaptername"> <a href="viewmanga.php?chap='.$chapter->find('a', 0)->plaintext.'&url='.$_GET['manga'].'">' . $chapter->find('a', 0)->plaintext . '</a></td>
                             <td class="uploaded">' . $chapter->find('span', 0)->plaintext . '</td>
                             </tr>';
                         }
