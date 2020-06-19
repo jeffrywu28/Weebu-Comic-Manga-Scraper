@@ -1,6 +1,6 @@
 <?php
-include('simple_html_dom.php');
-$html = file_get_html('https://m.mangabat.com/manga-list-all?type=topview');
+include('../simple_html_dom.php');
+$html = file_get_html($_GET['g']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,8 +68,8 @@ $html = file_get_html('https://m.mangabat.com/manga-list-all?type=topview');
           Account
         </a>
         <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item btn btn-dark" style="color:grey" href="account/login.php">Login</a>
-          <a class="dropdown-item btn btn-dark" style="color:grey" href="account/register.php">Register</a>
+          <a class="dropdown-item btn btn-dark" style="color:grey" href="../account/login.php">Login</a>
+          <a class="dropdown-item btn btn-dark" style="color:grey" href="../account/register.php">Register</a>
         </div>
       </li>
     </ul>
@@ -85,7 +85,7 @@ $html = file_get_html('https://m.mangabat.com/manga-list-all?type=topview');
     ?>
       <div class="col-md-3" style="margin: 0 auto;">
         <div class="card text-center" style="width: 200px; margin: 0 auto;">
-          <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="manga.php?manga=<?php echo $element->href; ?>">
+          <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="../manga.php?manga=<?php echo $element->href; ?>">
             <img src="<?php echo $element->children(0)->src; ?>" class="card-img-top">
             <h5><?php echo $element->title; ?></h5>
           </a>
