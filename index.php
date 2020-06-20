@@ -59,6 +59,9 @@ $html = file_get_html('https://m.mangabat.com/manga-list-all?type=topview');
         <li class="nav-item">
           <a class="navbar-brand" href="genre/viewallgenre.php">Genre</a>
         </li>
+        <li class="nav-item">
+          <a class="navbar-brand" href="account/isiberita.php">News</a>
+        </li>
       </ul>
     </div>
     <form class="form-inline my-2 my-lg-0">
