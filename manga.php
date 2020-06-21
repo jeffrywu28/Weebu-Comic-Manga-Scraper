@@ -1,5 +1,4 @@
 <?php
-session_start();
 include('simple_html_dom.php');
 $html = file_get_html($_GET['manga']);
 ?>
@@ -75,16 +74,35 @@ $html = file_get_html($_GET['manga']);
                     <div class="navbar-brand">Wibu Comic</div>
                 </li>
                 <li class="nav-item active">
-                    <a class="navbar-brand" id="active-page" href="index.php">Home</a>
+                    <a class="navbar-brand" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="genre/index.php">Genre</a>
+                    <a class="navbar-brand" href="genre/viewallgenre.php">Genre</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="topmanga.php" >Top Manga of All Time</a>
+                    <a class="navbar-brand" href="account/isiberita.php">News</a>
                 </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="topmanga.php">Top Manga</a>
+                </li>
+                <ul class="navbar-nav ml-auto" id="active-page">
+                    <li class="nav-item dropdown" id="secret">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            News
+                        </a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item btn btn-dark" style="color:grey" href="addberita.php">Add</a>
+                            <a class="dropdown-item btn btn-dark" style="color:grey" href="editberita.php">Edit</a>
+                            <a class="dropdown-item btn btn-dark" style="color:grey" href="deleteberita.php">Delete</a>
+                        </div>
+                    </li>
+                </ul>
             </ul>
         </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown" id="secret">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -142,35 +160,9 @@ $html = file_get_html($_GET['manga']);
                                 <tr>
                                     <th>Last Chapter: <?php echo $element->children(3)->last_child()->plaintext; ?></th>
                                 </tr> <?php } ?>
-                            
-                                <!-- like & wish -->
-                                <!-- "like.php?nama=<hp echo $html->find('div.story-info-right')->children(0)->plaintext;?>"><i class="fa fa-heart btn" -->
                             <tr>
-                            <form method="post">
-                            <th><span><i class="fa fa-heart btn"></i></span><span><button class="btn" name="check"><i class="fa fa-thumbs-o-up"></i></button></span></th>
-                            </form>
-                        </tr>
-                                <!-- END like & wish -->
-                               
-                                <?php
-                                
-                                $nama='lala';
-                                // Check if the user is already logged in, if yes then redirect him to welcome page
-                                if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-                                    header("location: ../account/like.php?n=$nama");
-                                    exit;
-                                }else{
-                                    if(isset($_POST['check'])){
-                                        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    Login terlebih dahulu untuk like & wishlist.Silahkan Login disini : <a href="account/login.php">Login</a>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>';
-                                    }
-                                }
-                                ?>
-
+                                <th><span><a href="#"><i class="fa fa-heart"></i></a></span><span><a href="#"><i class="fa fa-thumbs-o-up "></i></a></span></th>
+                            </tr>
                             </table>
                         </div>
                 </div>

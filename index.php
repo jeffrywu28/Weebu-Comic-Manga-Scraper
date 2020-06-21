@@ -45,38 +45,57 @@ $html = file_get_html('https://m.mangabat.com/manga-list-all?type=topview');
 <body>
   <!--NavBar-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item disabled">
-                    <div class="navbar-brand">Wibu Comic</div>
-                </li>
-                <li class="nav-item active">
-                    <a class="navbar-brand" id="active-page" href="index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="genre/index.php">Genre</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="topmanga.php" >Top Manga of All Time</a>
-                </li>
-            </ul>
-        </div>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown" id="secret">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Account
-                </a>
-                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item btn btn-dark" style="color:grey" href="account/login.php">Login</a>
-                    <a class="dropdown-item btn btn-dark" style="color:grey" href="account/register.php">Register</a>
-                </div>
-            </li>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item disabled">
+          <div class="navbar-brand">Wibu Comic</div>
+        </li>
+        <li class="nav-item active">
+          <a class="navbar-brand" href="index.php" id="active-page">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="navbar-brand" href="genre/viewallgenre.php">Genre</a>
+        </li>
+        <li class="nav-item">
+          <a class="navbar-brand" href="account/isiberita.php">News</a>
+        </li>
+        <li class="nav-item">
+          <a class="navbar-brand" href="topmanga.php">Top Manga</a>
+        </li>
+        <ul class="navbar-nav ml-auto" id="active-page">
+          <li class="nav-item dropdown" id="secret">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              News
+            </a>
+            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item btn btn-dark" style="color:grey" href="addberita.php">Add</a>
+              <a class="dropdown-item btn btn-dark" style="color:grey" href="editberita.php">Edit</a>
+              <a class="dropdown-item btn btn-dark" style="color:grey" href="deleteberita.php">Delete</a>
+            </div>
+          </li>
         </ul>
+      </ul>
+    </div>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown" id="secret">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Account
+        </a>
+        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item btn btn-dark" style="color:grey" href="account/login.php">Login</a>
+          <a class="dropdown-item btn btn-dark" style="color:grey" href="account/register.php">Register</a>
         </div>
-    </nav>
+      </li>
+    </ul>
+    </div>
+  </nav>
 
   <!--Isi memakai card dalam container-->
   <div class="container-fluid" style="padding: 0 20% 0 20%;">

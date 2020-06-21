@@ -2,6 +2,20 @@
 //div.pb12
 include('simple_html_dom.php');
 $html = file_get_html("https://myanimelist.net/topmanga.php?type=favorite");
+
+// foreach ($html->find('td.title div.detail') as $element) {
+//     echo $element->plaintext. "<br>";
+// }
+// foreach ($html->find('td.title') as $element) {
+//     $element = preg_replace("/<a\s(.+?)>(.+?)<\/a>/is", "$2", $element);
+//     // echo $element . "<br>";
+//     preg_match('@src="([^"]+)"@', $element, $match);
+//     $src = array_pop($match);
+//     // echo $src;
+
+//     // echo "<img src=".$src." style='width: 150px;'>";
+//     // echo $element->plaintext. "<br>";
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,11 +110,26 @@ $html = file_get_html("https://myanimelist.net/topmanga.php?type=favorite");
                     <a class="navbar-brand" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="genre/index.php">Genre</a>
+                    <a class="navbar-brand" href="genre/viewallgenre.php">Genre</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#" id="active-page">Top Manga of All Time</a>
+                    <a class="navbar-brand" href="account/isiberita.php">News</a>
                 </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="topmanga.php" id="active-page">Top Manga</a>
+                </li>
+                <ul class="navbar-nav ml-auto" id="active-page">
+                    <li class="nav-item dropdown" id="secret">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            News
+                        </a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item btn btn-dark" style="color:grey" href="addberita.php">Add</a>
+                            <a class="dropdown-item btn btn-dark" style="color:grey" href="editberita.php">Edit</a>
+                            <a class="dropdown-item btn btn-dark" style="color:grey" href="deleteberita.php">Delete</a>
+                        </div>
+                    </li>
+                </ul>
             </ul>
         </div>
         <form class="form-inline my-2 my-lg-0">

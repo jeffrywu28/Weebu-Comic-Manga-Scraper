@@ -16,28 +16,31 @@ require_once "database.php";
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <style type="text/css">
         body {
-      margin: 0 px;
-      background-color: black;
-    }
-    #active-page {
-      font-weight: bold;
-    }
-    .container{
-        margin: 0 auto;
-        margin-top: 3%;
-    }
-    .hello{
-        text-align: center;
-    }
+            margin: 0 px;
+            background-color: black;
+        }
+
+        #active-page {
+            font-weight: bold;
+        }
+
+        .container {
+            margin: 0 auto;
+            margin-top: 3%;
+        }
+
+        .hello {
+            text-align: center;
+        }
     </style>
 </head>
 <!-- class="bg-secondary" -->
@@ -57,36 +60,25 @@ require_once "database.php";
                     <a class="navbar-brand" href="../index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="../genre/index.php">Genre</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="topmanga.php" >Top Manga of All Time</a>
-                </li>
-                <li class="nav-item dropdown" id="secret">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Admin Settings
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item btn " href="addberita.php">Add New Announcement</a>
-                        <a class="dropdown-item btn" href="editberita.php">Edit Announcement</a>
-                        <a class="dropdown-item btn" href="deleteberita.php">Delete Announcement</a>
-                    </div>
+                    <a class="navbar-brand" href="genre/viewallgenre.php">Genre</a>
                 </li>
             </ul>
         </div>
-        <ul class="navbar-nav nav-pills" style="float:right">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php echo htmlspecialchars($_SESSION["name"]); ?>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a href="../account/index.php" class="dropdown-item btn btn-dark">Profile</a>
-                        <a href="" class="dropdown-item btn btn-dark">Favorite</a>
-                        <a href="change-password.php" class="dropdown-item btn">Change Password</a>
-                        <a href="logout.php" class="dropdown-item btn">Sign Out</a>
-                    </div>
-                </li>
-            </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <ul class="navbar-nav ml-auto" id="active-page">
+            <li class="nav-item dropdown" id="secret">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Account
+                </a>
+                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item btn btn-dark" style="color:grey" href="login.php">Login</a>
+                    <a class="dropdown-item btn btn-dark" style="color:grey" href="register.php">Register</a>
+                </div>
+            </li>
+        </ul>
         </div>
     </nav>
 
@@ -143,15 +135,15 @@ require_once "database.php";
         }
         ?>
     </div>
-    
+
     <div class="hello">
-    <div class="page-header">
-        <h1 style="color:white;">Hi, <b><?php echo htmlspecialchars($_SESSION["name"]); ?></b>. Welcome to our site.</h1>
-    </div>
-    <p>
-        <a href="change-password.php" class="btn btn-warning">Change Your Password</a>
-        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
-    </p>
+        <div class="page-header">
+            <h1 style="color:white;">Hi, <b><?php echo htmlspecialchars($_SESSION["name"]); ?></b>. Welcome to our site.</h1>
+        </div>
+        <p>
+            <a href="change-password.php" class="btn btn-warning">Change Your Password</a>
+            <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
+        </p>
     </div>
     <?php
 

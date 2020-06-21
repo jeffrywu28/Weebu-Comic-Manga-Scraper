@@ -1,27 +1,26 @@
 <?php
 // Initialize the session
 session_start();
- 
+
 // Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
     exit;
 }
 require_once "database.php";
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
+    <title>Welcome</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <style type="text/css">
@@ -81,33 +80,34 @@ require_once "database.php";
     </nav>
 
     <div class="container">
-    	<?php
-    		$data = mysqli_query($link, "SELECT * FROM berita_website");
-    		while($res = mysqli_fetch_assoc($data)){
-                $show_id = $res["id"];
-                if($_GET["idberita"] == $show_id){
-    				$show_judul = $res["judul_berita"];
-                    $show_isi = $res["isi_berita"];
-                    $show_tanggal = $res["tanggal_kirim"];
-                    $show_gambar = $res["gambar_berita"];
-    	?>
-	    	<h5 style="text-align:right; color:white;"><?php echo $show_tanggal; ?></h5>
-            <h1 style="text-align:center; color:white;"><b><?php echo $show_judul; ?></b></h1>
-            <img src="uploads/<?php echo $show_gambar; ?>" class="card-img" alt="fotooo" style="height: 50%; width: 50%;">
-            <p style="color:white"><?php echo $show_isi; ?></p>
-		<?php
-                }
-			}
-		?>
+        <?php
+        $data = mysqli_query($link, "SELECT * FROM berita_website");
+        while ($res = mysqli_fetch_assoc($data)) {
+            $show_id = $res["id"];
+            if ($_GET["idberita"] == $show_id) {
+                $show_judul = $res["judul_berita"];
+                $show_isi = $res["isi_berita"];
+                $show_tanggal = $res["tanggal_kirim"];
+                $show_gambar = $res["gambar_berita"];
+        ?>
+                <h5 style="text-align:right; color:white;"><?php echo $show_tanggal; ?></h5>
+                <h1 style="text-align:center; color:white;"><b><?php echo $show_judul; ?></b></h1>
+                <img src="uploads/<?php echo $show_gambar; ?>" class="card-img" alt="fotooo" style="height: 50%; width: 50%;">
+                <p style="color:white"><?php echo $show_isi; ?></p>
+        <?php
+            }
+        }
+        ?>
         <button class="btn btn-dark" style="position:absolute; left:0; right:0; margin:auto;"><a href="index.php" style="color:white;">Back</a></button>
-	</div>
+    </div>
 
     <?php
-    if(htmlspecialchars($_SESSION["status"]) == "adminwibu"){
-         echo "<script>document.getElementById('secret').style.visibility = 'visible'</script>";
+    if (htmlspecialchars($_SESSION["status"]) == "adminwibu") {
+        echo "<script>document.getElementById('secret').style.visibility = 'visible'</script>";
     } else {
         echo "<script>document.getElementById('secret').style.visibility = 'hidden'</script>";
     }
     ?>
 </body>
+
 </html>
