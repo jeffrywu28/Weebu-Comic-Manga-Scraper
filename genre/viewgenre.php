@@ -54,7 +54,7 @@ $html = file_get_html($_GET['g']);
           <a class="navbar-brand" href="index.php" id="active-page">Home</a>
         </li>
         <li class="nav-item">
-          <a class="navbar-brand" href="genre/viewallgenre.php">Genre</a>
+          <a class="navbar-brand" href="genre/index.php">Genre</a>
         </li>
       </ul>
     </div>
