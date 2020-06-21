@@ -1,12 +1,7 @@
 <?php
+session_start();
 include('simple_html_dom.php');
 $html = file_get_html('https://m.mangabat.com/manga-list-all?type=topview');
-session_start();
-if(isset($_SESSION["loggedin"])===true){
-  $_SESSION['loggedin']=true;
-}else
-$_SESSION['loggedin'] = false;
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,13 +45,12 @@ $_SESSION['loggedin'] = false;
 
 <body>
   <!--NavBar-->
-  <?php
-  if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    require_once('navbar/navlogin');
-}else{
+  <?php 
+  if (!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] !== true) {
     require_once('navbar/navbar');
+  }else{
+    require_once('navbar/navlogin');
   }
-    
   ?>
 
   <!--Isi memakai card dalam container-->

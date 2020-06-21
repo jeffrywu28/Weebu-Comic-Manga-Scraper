@@ -69,7 +69,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
 
-                header("location: welcome.php");
+                header("location: index.php");
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
@@ -103,20 +103,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body class="bg-secondary">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="welcome.php">Navbar</a>
+        <a class="navbar-brand" href="index.php">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link active" href="welcome.php">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="features.html">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Pricing</a>
+                    <a class="nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

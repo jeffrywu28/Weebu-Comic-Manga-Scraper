@@ -177,23 +177,11 @@ function test_input($data)
                 <li class="nav-item">
                     <a class="navbar-brand" href="#">Genre</a>
                 </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="../topmanga.php" >Top Manga of All Time</a>
+                </li>
             </ul>
         </div>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <ul class="navbar-nav ml-auto" id="active-page">
-            <li class="nav-item dropdown" id="secret">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Account
-                </a>
-                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item btn btn-dark" style="color:grey" href="login.php">Login</a>
-                    <a class="dropdown-item btn btn-dark" style="color:grey" href="#">Register</a>
-                </div>
-            </li>
-        </ul>
         </div>
     </nav>
 
