@@ -1,6 +1,6 @@
 <?php
 include('simple_html_dom.php');
-$html = file_get_html('https://m.mangabat.com/manga-list-all?type=topview');
+$html = file_get_html('https://m.mangabat.com/manga-list-all?type=newest');
 session_start();
 ?>
 <!DOCTYPE html>
@@ -9,7 +9,7 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weebu Comic</title>
+  <title>Latest Comic</title>
   <!-- CSS only -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -57,7 +57,7 @@ session_start();
         <div class="card text-center" style="width: 200px; margin: 0 auto;">
           <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="manga.php?manga=<?php echo $element->href; ?>">
             <img src="<?php echo $element->children(0)->src; ?>" class="card-img-top" width="60px" height="300px">
-            <h5 class="mt-1" style="font-size: 18px;"><?php echo $element->title; ?></h5>
+            <h5 class="mt-1"style="font-size: 18px;"><?php echo $element->title; ?></h5>
           </a>
         </div>
       </div>

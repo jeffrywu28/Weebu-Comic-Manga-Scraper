@@ -24,16 +24,9 @@ $html = file_get_html($_GET['g']);
 
     .card {
       margin: 0 auto;
-      /* Added */
       float: none;
-      /* Added */
       margin-bottom: 10px;
-      /* Added */
-    }
-
-    .card-body>img {
-      max-height: 40%;
-      max-width: 40%;
+      height: 360px;
     }
 
     #active-page {
@@ -43,38 +36,7 @@ $html = file_get_html($_GET['g']);
 </head>
 
 <body>
-  <!--NavBar-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="navbar-brand" href="index.php" id="active-page">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="navbar-brand" href="genre/index.php">Genre</a>
-        </li>
-      </ul>
-    </div>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown" id="secret">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Account
-        </a>
-        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item btn btn-dark" style="color:grey" href="../account/login.php">Login</a>
-          <a class="dropdown-item btn btn-dark" style="color:grey" href="../account/register.php">Register</a>
-        </div>
-      </li>
-    </ul>
-    </div>
-  </nav>
+<?php require('../navbar/navbar');?>
 
   <!--Isi memakai card dalam container-->
   <div class="container-fluid" style="padding: 0 20% 0 20%;">
@@ -85,9 +47,9 @@ $html = file_get_html($_GET['g']);
     ?>
       <div class="col-md-3" style="margin: 0 auto;">
         <div class="card text-center" style="width: 200px; margin: 0 auto;">
-          <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="../manga.php?manga=<?php echo $element->href; ?>">
-            <img src="<?php echo $element->children(0)->src; ?>" class="card-img-top">
-            <h5><?php echo $element->title; ?></h5>
+          <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="manga.php?manga=<?php echo $element->href; ?>">
+            <img src="<?php echo $element->children(0)->src; ?>" class="card-img-top" width="60px" height="300px">
+            <h5 class="mt-1" style="font-size: 18px;"><?php echo $element->title; ?></h5>
           </a>
         </div>
       </div>

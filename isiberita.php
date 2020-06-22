@@ -70,34 +70,34 @@
     <div class="container">
         
         <script>
-        function refreshData(search) {
-            $("div[id=databerita]").html("Loading data.. ");
-            $.ajax({
-                url: "getberita.php",
-                data: {
-                    a: 1
-                },
-                dataType: "json",
-                success: function(res) {
-                    var data = res;
-                    var dataDiv = $("#databerita");
-                    var str = '';
-                    //LOOP DATA
-                    for (var i = 0; i < data.length; i++) {
-                        str += '<h5 style="text-align:right; color:white;">'.d.tanggal_kirim.'</h5>';
-                        str += ' <h1 style="text-align:center; color:white;"><b>'.d.judul_berita.'</b></h1>';
-                        var d = data[i];
-                        str += '<img src="uploads/'.d.gambar_berita.'" class="card-img" alt="fotooo" style="height: 50%; width: 50%;">';
-                        str += '<p style="color:white">'.d.isi_berita.'</p>';
-                    }
-                    dataDiv.html(str);
-                },
-                error: function(a) {
-                    alert("ERRORR");
-                }
-            });
+        // function refreshData(search) {
+        //     $("div[id=databerita]").html("Loading data.. ");
+        //     $.ajax({
+        //         url: "getberita.php",
+        //         data: {
+        //             a: 1
+        //         },
+        //         dataType: "json",
+        //         success: function(res) {
+        //             var data = res;
+        //             var dataDiv = $("#databerita");
+        //             var str = '';
+        //             //LOOP DATA
+        //             for (var i = 0; i < data.length; i++) {
+        //                 str += '<h5 style="text-align:right; color:white;">'.d.tanggal_kirim.'</h5>';
+        //                 str += ' <h1 style="text-align:center; color:white;"><b>'.d.judul_berita.'</b></h1>';
+        //                 var d = data[i];
+        //                 str += '<img src="uploads/'.d.gambar_berita.'" class="card-img" alt="fotooo" style="height: 50%; width: 50%;">';
+        //                 str += '<p style="color:white">'.d.isi_berita.'</p>';
+        //             }
+        //             dataDiv.html(str);
+        //         },
+        //         error: function(a) {
+        //             alert("ERRORR");
+        //         }
+        //     });
 
-        }
+        // }
 
         var timer;
         window.onload = function() {

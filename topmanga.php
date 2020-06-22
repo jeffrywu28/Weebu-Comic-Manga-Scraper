@@ -13,7 +13,7 @@ $html = file_get_html("https://myanimelist.net/topmanga.php?type=favorite");
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Top Manga All The Time</title>
     <script>
     </script>
     <style>
@@ -83,14 +83,14 @@ $html = file_get_html("https://myanimelist.net/topmanga.php?type=favorite");
 
 <body>
     <?php require('navbar/navbar');?>
-
+    <h3 style="color:white;" class="text-center mt-3">List Top Manga All The World, All The Time</h3>
     <!-- tabel untuk data komik -->
-    <div style="margin: 5em; padding: 15%; padding-top: 0;">
+    <div style="margin: 2em; padding: 15%; padding-top: 0;">
         <table class="table table-striped table-borderless" style="border-bottom-style: none;">
             <thead>
                 <tr style="background-color: cyan; text-align: center;">
                     <th scope="col" style="width: 100px;">#</th>
-                    <th scope="col">Title</th>
+                    <th scope="col">List Best Manga All The Time from myAnimeList</th>
                 </tr>
             </thead>
             <tbody>
@@ -109,16 +109,11 @@ $html = file_get_html("https://myanimelist.net/topmanga.php?type=favorite");
                                 <div class="card-transparent" style="max-width: 540px;opacity: 0px; margin: 0 auto;">
                                     <div class="row no-gutters">
                                         <div class="col-md-4" style="max-width: 50px;">
-                                            <!-- <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="manga.php?manga=<?php echo $element->href; ?>"> -->
                                             <img src="<?php echo $src; ?>" class="card-img" style="width: auto; float: left;">
-                                            <!-- </a> -->
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
-                                                <!-- <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="manga.php?manga=<?php echo $element->href; ?>"> -->
-                                                <!-- <h5 class="card-title"></h5> -->
                                                 <?php echo strip_tags($element, "<div>") ?>
-                                                <!-- </a> -->
                                                 <p class="card-text"></p>
                                             </div>
                                         </div>
