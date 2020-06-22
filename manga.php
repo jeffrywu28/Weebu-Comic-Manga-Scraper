@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    $login='y';
+}else{
+    $login='n';
+}
 include('simple_html_dom.php');
 $html = file_get_html($_GET['manga']);
 ?>
@@ -18,44 +23,28 @@ $html = file_get_html($_GET['manga']);
     <script>
     </script>
     <style>
-        body {
-            margin: 0 px;
-        }
-
+        body {margin: 0 px;}
         .card {
             margin: 0 auto;
-            /* Added */
             float: none;
-            /* Added */
             margin-bottom: 10px;
-            /* Added */
         }
-
         .card-body>img {
             max-height: 40%;
             max-width: 40%;
         }
-
-        .chaptername {
-            float: left;
-        }
-
-        .uploaded {
-            float: right;
-        }
-
+        .chaptername {float: left;}
+        .uploaded {float: right;}
         td {
             overflow: hidden;
             padding: 0;
         }
-
         #fixed_header {
             display: block;
             width: 100%;
             overflow: auto;
             height: 500px;
         }
-
         .fa {
             font-size: 36px;
             padding: 10px;
@@ -64,41 +53,12 @@ $html = file_get_html($_GET['manga']);
 </head>
 
 <body style="background-color: black;">
-    <!--NavBar-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item disabled">
-                    <div class="navbar-brand">Wibu Comic</div>
-                </li>
-                <li class="nav-item active">
-                    <a class="navbar-brand" id="active-page" href="index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="genre/index.php">Genre</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="topmanga.php" >Top Manga of All Time</a>
-                </li>
-            </ul>
-        </div>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown" id="secret">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Account
-                </a>
-                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item btn btn-dark" style="color:grey" href="account/login.php">Login</a>
-                    <a class="dropdown-item btn btn-dark" style="color:grey" href="account/register.php">Register</a>
-                </div>
-            </li>
-        </ul>
-        </div>
-    </nav>
-
+    <?php 
+        if ($login=='y') {
+            require('navbar/navlogin');
+        }else{
+            require('navbar/navbar');
+        }?>
     <!-- main page -->
     <div style="margin: 5em;">
         <div class="card">
@@ -109,32 +69,33 @@ $html = file_get_html($_GET['manga']);
                 <div class="col-md-auto">
                     <?php foreach ($html->find('div.story-info-right') as $element) { ?>
                         <div class="card-body">
-                            <h3 class="card-title"><?php echo $element->children(0)->plaintext . '</h3>';
-                                                    if (is_null($element->children(1)->first_child()->children(3))) {
-                                                        echo '<table>';
-                                                        echo '<tr>';
-                                                        echo '<th>Author(s): ' . $element->children(1)->first_child()->children(0)->last_child()->plaintext . '</th>';
-                                                        echo '</tr>';
-                                                        echo '<tr>';
-                                                        echo '<th>Status :' . $element->children(1)->first_child()->children(1)->last_child()->plaintext . '</th>';
-                                                        echo '</tr>';
-                                                        echo '<tr>';
-                                                        echo '<th>Genres:' . $element->children(1)->first_child()->children(2)->last_child()->plaintext . '</th>';
-                                                        echo '</tr>';
-                                                    } else {
-                                                        echo '<table>';
-                                                        echo '<tr>';
-                                                        echo '<th>Author(s): ' . $element->children(1)->first_child()->children(1)->last_child()->plaintext . '</th>';
-                                                        echo '</tr>';
-                                                        echo '<tr>';
-                                                        echo '<th>Status :' . $element->children(1)->first_child()->children(2)->last_child()->plaintext . '</th>';
-                                                        echo '</tr>';
-                                                        echo '<tr>';
-                                                        echo '<th>Genres:' . $element->children(1)->first_child()->children(3)->last_child()->plaintext . '</th>';
-                                                        echo '</tr>';
-                                                    }
-                                                }
-                                                foreach ($html->find('div.story-info-right-extent') as $element) { ?>
+                            <h3 class="card-title">
+                                <?php echo $element->children(0)->plaintext . '</h3>';
+                                if (is_null($element->children(1)->first_child()->children(3))) {
+                                    echo '<table>';
+                                    echo '<tr>';
+                                    echo '<th>Author(s): ' . $element->children(1)->first_child()->children(0)->last_child()->plaintext . '</th>';
+                                    echo '</tr>';
+                                    echo '<tr>';
+                                    echo '<th>Status :' . $element->children(1)->first_child()->children(1)->last_child()->plaintext . '</th>';
+                                    echo '</tr>';
+                                    echo '<tr>';
+                                    echo '<th>Genres:' . $element->children(1)->first_child()->children(2)->last_child()->plaintext . '</th>';
+                                    echo '</tr>';
+                                } else {
+                                    echo '<table>';
+                                    echo '<tr>';
+                                    echo '<th>Author(s): ' . $element->children(1)->first_child()->children(1)->last_child()->plaintext . '</th>';
+                                    echo '</tr>';
+                                    echo '<tr>';
+                                    echo '<th>Status :' . $element->children(1)->first_child()->children(2)->last_child()->plaintext . '</th>';
+                                    echo '</tr>';
+                                    echo '<tr>';
+                                    echo '<th>Genres:' . $element->children(1)->first_child()->children(3)->last_child()->plaintext . '</th>';
+                                    echo '</tr>';
+                                }
+                            }
+                            foreach ($html->find('div.story-info-right-extent') as $element) { ?>
                                 </tr>
                                 <tr>
                                     <th>First Chapter: <?php echo $element->children(2)->last_child()->plaintext; ?></th>
@@ -142,35 +103,26 @@ $html = file_get_html($_GET['manga']);
                                 <tr>
                                     <th>Last Chapter: <?php echo $element->children(3)->last_child()->plaintext; ?></th>
                                 </tr> <?php } ?>
-                            
-                                <!-- like & wish -->
-                                <!-- "like.php?nama=<hp echo $html->find('div.story-info-right')->children(0)->plaintext;?>"><i class="fa fa-heart btn" -->
                             <tr>
                             <form method="post">
-                            <th><span><i class="fa fa-heart btn"></i></span><span><button class="btn" name="check"><i class="fa fa-thumbs-o-up"></i></button></span></th>
+                            <th><span><button class="btn" name="like"><i class="fa fa-heart btn"></i></button></span><span><button class="btn" id="like"><i class="fa fa-thumbs-o-up"></i></button></span></th>
                             </form>
                         </tr>
-                                <!-- END like & wish -->
-                               
+                                <!-- Like & wish -->
                                 <?php
-                                
-                                $nama='lala';
-                                // Check if the user is already logged in, if yes then redirect him to welcome page
-                                if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-                                    header("location: ../account/like.php?n=$nama");
-                                    exit;
-                                }else{
-                                    if(isset($_POST['check'])){
-                                        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    Login terlebih dahulu untuk like & wishlist.Silahkan Login disini : <a href="account/login.php">Login</a>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>';
-                                    }
-                                }
-                                ?>
-
+                                if ($login=='y'){
+                                    echo "<script>
+                                  $('#like').click(function(){
+                                    alert('suka');
+                                  });
+                                  </script>";
+                                  }else{
+                                  echo "<script>
+                                  $('#like').click(function(){
+                                    alert('Login Terlebih dahulu jika ingin menyukai komik ini.');
+                                  });
+                                  </script>";                                  
+                                  }?>
                             </table>
                         </div>
                 </div>

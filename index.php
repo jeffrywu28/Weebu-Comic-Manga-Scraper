@@ -2,9 +2,6 @@
 include('simple_html_dom.php');
 $html = file_get_html('https://m.mangabat.com/manga-list-all?type=topview');
 session_start();
-if(!isset($_SESSION["loggedin"])){
-  $_SESSION['loggedin']=false;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

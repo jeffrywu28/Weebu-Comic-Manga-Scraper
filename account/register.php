@@ -1,44 +1,39 @@
 <?php
-// Include config file
 require_once "database.php";
-
-// Define variables and initialize with empty values
 $username = $userid = $password = $confirm_password = "";
 $username_err = $userid_err = $password_err = $confirm_password_err = "";
 
-// Processing form data when form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    // Validate username
-    if (empty(trim($_POST["username"]))) {
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    if(empty(trim($_POST["username"]))){
         $userid_err = "Please enter a username.";
-    } elseif (strlen(trim($_POST["username"])) < 6 || strlen(trim($_POST["username"])) > 20) {
+    } elseif(strlen(trim($_POST["username"])) < 6 || strlen(trim($_POST["username"])) > 20){
         $userid_err = "Username or ID must have atleast 6 characters and below 20 characters.";
-    } else {
+    } else{
         // Prepare a select statement
         $sql = "SELECT id FROM account_user WHERE user_id = ?";
-
-        if ($stmt = mysqli_prepare($link, $sql)) {
+        
+        if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_userid);
-
+            
             // Set parameters
             $param_userid = trim($_POST["username"]);
-
+            
             // Attempt to execute the prepared statement
-            if (mysqli_stmt_execute($stmt)) {
+            if(mysqli_stmt_execute($stmt)){
                 /* store result */
                 mysqli_stmt_store_result($stmt);
-
-                if (mysqli_stmt_num_rows($stmt) == 1) {
+                
+                if(mysqli_stmt_num_rows($stmt) == 1){
                     $userid_err = "This username is already taken.";
-                } else {
+                } else{
                     $userid = test_input($_POST["username"]);
-                    if (!preg_match("/^[a-zA-Z0-9]*$/", $userid)) {
+                    if(!preg_match("/^[a-zA-Z0-9]*$/",$userid)){
                         $userid_err = "Username or ID only number, normal letters and capital letters";
                     }
                 }
-            } else {
+            } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
 
@@ -48,62 +43,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate name
-    if (empty(trim($_POST["name"]))) {
-        $username_err = "Please enter a Name.";
-    } elseif (strlen(trim($_POST["name"])) < 6 || strlen(trim($_POST["name"])) > 20) {
+    if(empty(trim($_POST["name"]))){
+        $username_err = "Please enter a Name.";     
+    } elseif(strlen(trim($_POST["name"])) < 6 || strlen(trim($_POST["name"])) > 20){
         $username_err = "Name must have atleast 6 characters and below 20 characters.";
-    } else {
+    } else{
         $username = test_input($_POST["name"]);
-        if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
-            $username_err = "Name only number, normal letters and capital letters";
+        if(!preg_match("/^[a-zA-Z 0-9]*$/",$username)){
+            $username_err = "Name only space, number, normal letters and capital letters";
         }
     }
-
+    
     // Validate password
-    if (empty(trim($_POST["password"]))) {
-        $password_err = "Please enter a password.";
-    } elseif (strlen(trim($_POST["password"])) < 6) {
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter a password.";     
+    } elseif(strlen(trim($_POST["password"])) < 6){
         $password_err = "Password must have atleast 6 characters.";
-    } else {
+    } else{
         $password = test_input($_POST["password"]);
-        if (!preg_match("/^[a-zA-Z0-9]*$/", $password)) {
+        if(!preg_match("/^[a-zA-Z0-9]*$/",$password)){
             $password_err = "Password only number, normal letters and capital letters";
         }
     }
-
+    
     // Validate confirm password
-    if (empty(trim($_POST["confirm_password"]))) {
-        $confirm_password_err = "Please confirm password.";
-    } else {
+    if(empty(trim($_POST["confirm_password"]))){
+        $confirm_password_err = "Please confirm password.";     
+    } else{
         $confirm_password = test_input($_POST["confirm_password"]);
-        if (!preg_match("/^[a-zA-Z0-9]*$/", $confirm_password)) {
+        if(!preg_match("/^[a-zA-Z0-9]*$/",$confirm_password)){
             $confirm_password_err = "Confirm password only number, normal letters and capital letters";
-        } elseif (empty($password_err) && ($password != $confirm_password)) {
+        }
+        elseif(empty($password_err) && ($password != $confirm_password)){
             $confirm_password_err = "Password did not match.";
         }
     }
-
-
+    
+    
     // Check input errors before inserting in database
-    if (empty($username_err) && empty($userid_err) && empty($password_err) && empty($confirm_password_err)) {
-
+    if(empty($username_err) && empty($userid_err) && empty($password_err) && empty($confirm_password_err)){
+        
         // Prepare an insert statement
         $sql = "INSERT INTO account_user (id, user_id, user_password, user_name, user_status) VALUES (0, ?, ?, ?, 'member')";
-
-        if ($stmt = mysqli_prepare($link, $sql)) {
+         
+        if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "sss", $param_userid, $param_password, $param_username);
-
+            
             // Set parameters
             $param_userid = $userid;
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-
+            
             // Attempt to execute the prepared statement
-            if (mysqli_stmt_execute($stmt)) {
-                // Redirect to login page
-                header("location: login.php");
-            } else {
+            if(mysqli_stmt_execute($stmt)){
+                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>Registrasi Berhasil!</strong> Silahkan login disini : <a href="http://localhost/proyek/account/login.php">Login</a>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>';
+            } else{
                 echo "Something went wrong. Please try again later.";
             }
 
@@ -111,13 +111,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_close($stmt);
         }
     }
-
+    
     // Close connection
     mysqli_close($link);
 }
 
-function test_input($data)
-{
+function test_input($data){
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
