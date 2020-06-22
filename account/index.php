@@ -57,13 +57,13 @@ require_once "database.php";
                 </ul>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="uploads/no1.jpg" class="rounded mx-auto d-block" alt="A" height="500px" max-width="100%">
+                        <img src="uploads/no1.jpg" class="rounded mx-auto d-block" alt="A" height="300px" max-width="100%">
                     </div>
                     <div class="carousel-item ">
-                        <img src="uploads/no2.jpg" class="rounded mx-auto d-block" alt="B" height="500px" max-width="100%">
+                        <img src="uploads/no2.jpg" class="rounded mx-auto d-block" alt="B" height="300px" max-width="100%">
                     </div>
                     <div class="carousel-item">
-                        <img src="uploads/no3.jpg" class="rounded mx-auto d-block" alt="C" height="500px" max-width="100%">
+                        <img src="uploads/no3.jpg" class="rounded mx-auto d-block" alt="C" height="300px" max-width="100%">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

@@ -9,22 +9,22 @@
                     <div class="navbar-brand">Wibu Comic</div>
                 </li>
                 <li class="nav-item active">
-                    <a class="navbar-brand" href="../account/index.php">Home</a>
+                    <a class="navbar-brand" href="http://localhost/proyek/index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="../genre/index.php">Genre</a>
+                    <a class="navbar-brand" href="http://localhost/proyek/genre/index.php">Genre</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="../topmanga.php" >Top Manga of All Time</a>
+                    <a class="navbar-brand" href="http://localhost/proyek/topmanga.php" >Top Manga of All Time</a>
                 </li>
                 <li class="nav-item dropdown" id="secret">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin Settings
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item btn " href="addberita.php">Add New Announcement</a>
-                        <a class="dropdown-item btn" href="editberita.php">Edit Announcement</a>
-                        <a class="dropdown-item btn" href="deleteberita.php">Delete Announcement</a>
+                        <a class="dropdown-item btn " href="http://localhost/proyek/account/addberita.php">Add New Announcement</a>
+                        <a class="dropdown-item btn" href="http://localhost/proyek/account/editberita.php">Edit Announcement</a>
+                        <a class="dropdown-item btn" href="http://localhost/proyek/account/deleteberita.php">Delete Announcement</a>
                     </div>
                 </li>
             </ul>
@@ -35,10 +35,10 @@
                         <?php echo htmlspecialchars($_SESSION["name"]); ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a href="../account/index.php" class="dropdown-item btn btn-dark">Profile</a>
+                        <a href="account/index.php" class="dropdown-item btn btn-dark">Profile</a>
                         <a href="" class="dropdown-item btn btn-dark">Favorite</a>
-                        <a href="change-password.php" class="dropdown-item btn">Change Password</a>
-                        <a href="logout.php" class="dropdown-item btn">Sign Out</a>
+                        <a href="../account/change-password.php" class="dropdown-item btn">Change Password</a>
+                        <a href="../account/logout.php" class="dropdown-item btn">Sign Out</a>
                     </div>
                 </li>
             </ul>

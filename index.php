@@ -2,11 +2,9 @@
 include('simple_html_dom.php');
 $html = file_get_html('https://m.mangabat.com/manga-list-all?type=topview');
 session_start();
-if(isset($_SESSION["loggedin"])===true){
-  $_SESSION['loggedin']=true;
-}else
-$_SESSION['loggedin'] = false;
-
+if(!isset($_SESSION["loggedin"])){
+  $_SESSION['loggedin']=false;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,16 +28,9 @@ $_SESSION['loggedin'] = false;
 
     .card {
       margin: 0 auto;
-      /* Added */
       float: none;
-      /* Added */
       margin-bottom: 10px;
-      /* Added */
-    }
-
-    .card-body>img {
-      max-height: 40%;
-      max-width: 40%;
+      height: 360px;
     }
 
     #active-page {
@@ -53,10 +44,9 @@ $_SESSION['loggedin'] = false;
   <?php
   if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     require_once('navbar/navlogin');
-}else{
+  }else{
     require_once('navbar/navbar');
   }
-    
   ?>
 
   <!--Isi memakai card dalam container-->
@@ -69,8 +59,8 @@ $_SESSION['loggedin'] = false;
       <div class="col-md-3" style="margin: 0 auto;">
         <div class="card text-center" style="width: 200px; margin: 0 auto;">
           <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="manga.php?manga=<?php echo $element->href; ?>">
-            <img src="<?php echo $element->children(0)->src; ?>" class="card-img-top">
-            <h5><?php echo $element->title; ?></h5>
+            <img src="<?php echo $element->children(0)->src; ?>" class="card-img-top" width="60px" height="300px">
+            <h5 class="mt-1"><?php echo $element->title; ?></h5>
           </a>
         </div>
       </div>

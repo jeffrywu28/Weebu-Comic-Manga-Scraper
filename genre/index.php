@@ -47,16 +47,19 @@
         text-decoration: none;
     }
     #result {
-   /*position: absolute;*/
+   position:absolute;
    width: 100%;
    display: block;
-   max-width:300px;
-   /*cursor: pointer;
-   overflow-y: auto;
-   */max-height: 200px;
+   max-width:200px;
+   max-height: 200px;
    box-sizing: border-box;
    z-index: 2001;
 }
+
+.list-group-item {
+  position: absolute;
+}
+
 .link-class:hover{
    background-color:#f1f1f1;
 }
@@ -82,8 +85,7 @@
              if (value.judul.search(expression) != -1)
              {
               $('#result').append('<li class="list-group-item link-class"><a href="'+value.url+'">'+value.judul+'</a></li>');
-              console.log(count++);
-           }
+             }
         });   
          });
       });
@@ -121,8 +123,8 @@
                     Account
                 </a>
                 <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item btn btn-dark" style="color:grey" href="account/login.php">Login</a>
-                    <a class="dropdown-item btn btn-dark" style="color:grey" href="account/register.php">Register</a>
+                    <a class="dropdown-item btn btn-dark" style="color:grey" href="../account/login.php">Login</a>
+                    <a class="dropdown-item btn btn-dark" style="color:grey" href="../account/register.php">Register</a>
                 </div>
             </li>
         </ul>

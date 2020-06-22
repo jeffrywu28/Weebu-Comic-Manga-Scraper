@@ -8,13 +8,13 @@
                     <div class="navbar-brand">Wibu Comic</div>
                 </li>
                 <li class="nav-item active">
-                    <a class="navbar-brand" id="active-page" href="index.php">Home</a>
+                    <a class="navbar-brand" id="active-page" href="http://localhost/proyek/index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="genre/index.php">Genre</a>
+                    <a class="navbar-brand" href="http://localhost/proyek/genre/index.php">Genre</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="topmanga.php" >Top Manga of All Time</a>
+                    <a class="navbar-brand" href="http://localhost/proyek/topmanga.php" >Top Manga of All Time</a>
                 </li>
             </ul>
         </div>
@@ -24,8 +24,8 @@
                     Account
                 </a>
                 <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item btn btn-dark" style="color:grey" href="account/login.php">Login</a>
-                    <a class="dropdown-item btn btn-dark" style="color:grey" href="account/register.php">Register</a>
+                    <a class="dropdown-item btn btn-dark" style="color:grey" href="http://localhost/proyek/account/login.php">Login</a>
+                    <a class="dropdown-item btn btn-dark" style="color:grey" href="http://localhost/proyek/account/register.php">Register</a>
                 </div>
             </li>
         </ul>
