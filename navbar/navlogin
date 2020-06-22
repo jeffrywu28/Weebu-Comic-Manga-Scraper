@@ -17,6 +17,9 @@
                 <li class="nav-item">
                     <a class="navbar-brand" href="http://localhost/proyek/topmanga.php" >Top Manga of All Time</a>
                 </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="http://localhost/proyek/berita.php">Manga News</a>
+                </li>
                 <li class="nav-item dropdown" id="secret">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin Settings
