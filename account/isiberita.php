@@ -41,6 +41,51 @@ require_once "database.php";
             margin: 0 auto;
         }
     </style>
+    <script>
+        function refreshData(search) {
+            $("div[id=databerita]").html("Loading data.. ");
+            $.ajax({
+                url: "getberita.php",
+                data: {
+                    a: 1
+                },
+                dataType: "json",
+                success: function(res) {
+                    var data = res;
+                    var dataDiv = $("#databerita");
+                    var str = '';
+                    //LOOP DATA
+                    for (var i = 0; i < data.length; i++) {
+                        str += '<div class="card bg-dark">';
+                        str += '<div class="card-body" style="color:white;">';
+                        var d = data[i];
+                        str += '<h3 style="text-align:left;color:white;"><span style="color:white;"><b>' + d.judul_berita + '</b></span></h3>';
+                        str += "<div>";
+                        str += '<span style="float:left;">' + d.id + '</span>';
+                        str += '<span style="float:right;">' + d.tanggal_kirim + '</span>';
+                        str += "</div>";
+                        str += "</div>";
+                        str += "</div>";
+                    }
+                    dataDiv.html(str);
+                },
+                error: function(a) {
+                    alert("ERRORR");
+                }
+            })
+
+        }
+
+        var timer;
+        window.onload = function() {
+            refreshData("");
+            var s = $("input[id=search]");
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                refreshData(s.val());
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -81,6 +126,7 @@ require_once "database.php";
     </nav>
 
     <div class="container">
+<<<<<<< Updated upstream
     	<?php
     		$data = mysqli_query($link, "SELECT * FROM berita_website");
     		while($res = mysqli_fetch_assoc($data)){
@@ -101,6 +147,14 @@ require_once "database.php";
 		?>
         <button class="btn btn-dark" style="position:absolute; left:0; right:0; margin:auto;"><a href="index.php" style="color:white;">Back</a></button>
 	</div>
+=======
+        <div class="databerita">
+            <div id="databerita">
+            </div>
+            <button class="btn btn-dark" style="position:absolute; left:0; right:0; margin:auto; margin-top: 1em;"><a href="../index.php" style="color:white;">Back</a></button>
+        </div>
+    </div>
+>>>>>>> Stashed changes
 
     <?php
     if(htmlspecialchars($_SESSION["status"]) == "adminwibu"){
