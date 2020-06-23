@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('../simple_html_dom.php');
 $html = file_get_html($_GET['g']);
 ?>
@@ -36,7 +37,97 @@ $html = file_get_html($_GET['g']);
 </head>
 
 <body>
-<?php require('../navbar/navbar');?>
+<?php
+  if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item disabled">
+                    <div class="navbar-brand">Wibu Comic</div>
+                </li>
+                <li class="nav-item active">
+                    <a class="navbar-brand" id="active-page" href="http://localhost/proyek/index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="http://localhost/proyek/genre/index.php">Genre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="http://localhost/proyek/latest.php">Latest Release</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="http://localhost/proyek/newest.php">New Manga Arrival</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="http://localhost/proyek/topmanga.php" >Top Manga of All Time</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="http://localhost/proyek/berita.php">Manga News</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="navbar-nav nav-pills" style="float:right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        '.htmlspecialchars($_SESSION["name"]).'
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="http://localhost/proyek/account/index.php" class="dropdown-item btn btn-dark">Profile</a>
+                        <a href="" class="dropdown-item btn btn-dark">Favorite</a>
+                        <a href="http://localhost/proyek/account/change-password.php" class="dropdown-item btn">Change Password</a>
+                        <a href="http://localhost/proyek/account/logout.php" class="dropdown-item btn">Sign Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>';
+  }else{
+    echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item disabled">
+                <div class="navbar-brand">Wibu Comic</div>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand" id="active-page" href="http://localhost/proyek/index.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="navbar-brand" href="http://localhost/proyek/genre/index.php">Genre</a>
+            </li>
+            <li class="nav-item">
+                <a class="navbar-brand" href="http://localhost/proyek/latest.php">Latest Release</a>
+            </li>
+            <li class="nav-item">
+                <a class="navbar-brand" href="http://localhost/proyek/newest.php">New Manga Arrival</a>
+            </li>
+            <li class="nav-item">
+                <a class="navbar-brand" href="http://localhost/proyek/topmanga.php" >Top Manga of All Time</a>
+            </li>
+            <li class="nav-item">
+                <a class="navbar-brand" href="http://localhost/proyek/berita.php">Manga News</a>
+            </li>
+        </ul>
+    </div>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown" id="secret">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
+            </a>
+            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item btn btn-dark" style="color:grey" href="http://localhost/proyek/account/login.php">Login</a>
+                <a class="dropdown-item btn btn-dark" style="color:grey" href="http://localhost/proyek/account/register.php">Register</a>
+            </div>
+        </li>
+    </ul>
+    </div>
+</nav>';
+  }
+  ?>
 
   <!--Isi memakai card dalam container-->
   <div class="container-fluid" style="padding: 0 20% 0 20%;">
@@ -47,7 +138,7 @@ $html = file_get_html($_GET['g']);
     ?>
       <div class="col-md-3" style="margin: 0 auto;">
         <div class="card text-center" style="width: 200px; margin: 0 auto;">
-          <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="manga.php?manga=<?php echo $element->href; ?>">
+          <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="http://localhost/proyek/manga.php?manga=<?php echo $element->href; ?>">
             <img src="<?php echo $element->children(0)->src; ?>" class="card-img-top" width="60px" height="300px">
             <h5 class="mt-1" style="font-size: 18px;"><?php echo $element->title; ?></h5>
           </a>

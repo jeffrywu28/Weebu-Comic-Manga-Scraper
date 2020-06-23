@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,7 +83,13 @@
 </head>
 
 <body>
-<?php require('navbar/navbar');?>
+<?php
+  if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    require_once('navbar/navlogin');
+  }else{
+    require_once('navbar/navbar');
+  }
+  ?>
 
     <div class="container" style="margin-top:3%; margin-bottom: 3%;">
         <h1 style="color:white;" class="mb-3"><b>Berita Anime & Manga Terbaru : </b></h1>

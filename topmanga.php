@@ -1,5 +1,5 @@
 <?php
-//div.pb12
+session_start();
 include('simple_html_dom.php');
 $html = file_get_html("https://myanimelist.net/topmanga.php?type=favorite");
 ?>
@@ -82,7 +82,13 @@ $html = file_get_html("https://myanimelist.net/topmanga.php?type=favorite");
 </head>
 
 <body>
-    <?php require('navbar/navbar');?>
+<?php
+  if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    require_once('navbar/navlogin');
+  }else{
+    require_once('navbar/navbar');
+  }
+  ?>
     <h3 style="color:white;" class="text-center mt-3">List Top Manga All The World, All The Time</h3>
     <!-- tabel untuk data komik -->
     <div style="margin: 2em; padding: 15%; padding-top: 0;">

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('simple_html_dom.php');
 ?>
 
@@ -48,7 +49,11 @@ include('simple_html_dom.php');
 </head>
 
 <body>
-<?php require('navbar/navbar');?>
+<?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    require_once('navbar/navlogin');
+  }else{
+    require_once('navbar/navbar');
+  }?>
 
   <div class="manga">
       <?php
