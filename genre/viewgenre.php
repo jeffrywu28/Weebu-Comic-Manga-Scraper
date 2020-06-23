@@ -140,7 +140,7 @@ $html = file_get_html($_GET['g']);
         <div class="card text-center" style="width: 200px; margin: 0 auto;">
           <a class="card-block stretched-link text-decoration-none" style="margin: 0 auto;" href="http://localhost/proyek/manga.php?manga=<?php echo $element->href; ?>">
             <img src="<?php echo $element->children(0)->src; ?>" class="card-img-top" width="60px" height="300px">
-            <h5 class="mt-1" style="font-size: 18px;"><?php echo $element->title; ?></h5>
+            <h5 class="mt-1" style="font-size: 15px;"><?php echo $element->title; ?></h5>
           </a>
         </div>
       </div>

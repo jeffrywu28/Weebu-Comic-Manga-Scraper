@@ -105,25 +105,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <style type="text/css">
-        body {
-            margin: 0 px;
-            background-color: black;
+        body{ font: 14px sans-serif; color:black;}
+        .bg{
+            background-image: url("uploads/background1.jpg");
+            background-size: cover;
         }
-
-        #active-page {
-            font-weight: bold;
-        }
-
-        .wrapper {
-            width: 350px;
-            padding-top: 3%;
-            color: white;
-            margin: 0 auto;
-        }
+        .wrapper{ margin-left: 30%; margin-top: 10%; width: 40%; padding: 20px; }
     </style>
 </head>
-
-<body>
+<body class="bg">
     <!--NavBar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -148,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </nav>
 
-    <div class="wrapper">
+    <div class="wrapper" style="text-align:center; color:white;">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -165,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
+            <p>Don't have an account? <a href="register.php" style="color: white;">Sign up now</a>.</p>
         </form>
     </div>
 </body>

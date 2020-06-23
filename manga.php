@@ -1,12 +1,24 @@
 <?php
 session_start();
+require('account/database.php');
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     $login='y';
+    $val=$_SESSION["name"];
+    //get id user
+    $id_user = mysqli_query($link, "SELECT id FROM `account_user` WHERE '$val' = user_name");
+    $id_user = mysqli_fetch_array($id_user)[0];
+    $checklike = mysqli_query($link, "SELECT like_status FROM account_user INNER JOIN account_like ON account_user.id=account_like.id_account WHERE $id_user =id");
+    $checklike = mysqli_fetch_array($checklike)[0];
+    $checkwish = mysqli_query($link, "SELECT wish_status FROM account_user INNER JOIN account_wishlist ON account_user.id=account_wishlist.id_account WHERE $id_user =id");
+    $checkwish = mysqli_fetch_array($checkwish)[0];
 }else{
     $login='n';
 }
 include('simple_html_dom.php');
+
 $html = file_get_html($_GET['manga']);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,6 +62,7 @@ $html = file_get_html($_GET['manga']);
             padding: 10px;
         }
     </style>
+    
 </head>
 
 <body style="background-color: black;">
@@ -69,8 +82,7 @@ $html = file_get_html($_GET['manga']);
                 <div class="col-md-auto">
                     <?php foreach ($html->find('div.story-info-right') as $element) { ?>
                         <div class="card-body">
-                            <h3 class="card-title">
-                                <?php echo $element->children(0)->plaintext . '</h3>';
+                            <h3 class="card-title"><?php echo $element->children(0)->plaintext.'</h3>';
                                 if (is_null($element->children(1)->first_child()->children(3))) {
                                     echo '<table>';
                                     echo '<tr>';
@@ -105,21 +117,91 @@ $html = file_get_html($_GET['manga']);
                                 </tr> <?php } ?>
                             <tr>
                             <form method="post">
-                            <th><span><button class="btn" name="like"><i class="fa fa-heart btn"></i></button></span><span><button class="btn" id="like"><i class="fa fa-thumbs-o-up"></i></button></span></th>
+                            <th><span><i class="fa fa-heart btn" id="wish" name="wish"></i></span><span><i class="fa fa-thumbs-o-up btn" id="like"></i></span></th>
                             </form>
                         </tr>
                                 <!-- Like & wish -->
                                 <?php
                                 if ($login=='y'){
-                                    echo "<script>
-                                  $('#like').click(function(){
-                                    alert('suka');
-                                  });
-                                  </script>";
+                                        if($checklike == TRUE){
+                                            echo '<script>
+                                            $(".fa-thumbs-o-up").css("color", "red");
+                                            $("#like").click(function(){
+                                                var id_user = "'.$id_user.'";
+                                                $.ajax({
+                                                    type:"POST",
+                                                    url: "account/unlike.php",
+                                                    data: "<data><namauser>"+id_user+"</namauser></data>",
+                                                    contentType: "text/xml",
+                                                    dataType: "text",
+                                                    success: function(res){
+                                                        alert("SUKSES DISLIKE");
+                                                        $(".fa-thumbs-o-up").css("color", "dark");
+                                                    }
+                                                });
+                                            });</script>';
+                                        }else{
+                                            echo '<script> $("#like").click(function(){
+                                                var nama_komik = $(".card-title").text();
+                                                var nama_user = "'.$_SESSION["name"].'";
+                                                $.ajax({
+                                                    type:"POST",
+                                                    url: "account/like.php",
+                                                    data: "<data><namakomik>"+nama_komik+"</namakomik><namauser>"+nama_user+"</namauser></data>",
+                                                    contentType: "text/xml",
+                                                    dataType: "text",
+                                                    success: function(res){
+                                                        alert("SUKSES LIKE");
+                                                        $(".fa-thumbs-o-up").css("color", "red");
+                                                    }
+                                                });
+                                            });
+                                            </script>';
+                                        }
+
+                                        //wishlist
+                                        if($checkwish == TRUE){
+                                            echo '<script>
+                                            $(".fa-heart").css("color", "red");
+                                            $("#wish").click(function(){
+                                                var id_user = "'.$id_user.'";
+                                                $.ajax({
+                                                    type:"POST",
+                                                    url: "account/unwish.php",
+                                                    data: "<data><namauser>"+id_user+"</namauser></data>",
+                                                    contentType: "text/xml",
+                                                    dataType: "text",
+                                                    success: function(res){
+                                                        $(".fa-heart").css("color", "dark");
+                                                    }
+                                                });
+                                            });</script>';
+                                        }else{
+                                            echo '<script> $("#wish").click(function(){
+                                                var nama_komik = $(".card-title").text();
+                                                var nama_user = "'.$_SESSION["name"].'";
+                                                var link = window.location.href;
+                                                $.ajax({
+                                                    type:"POST",
+                                                    url: "account/wishlist.php",
+                                                    data: "<data><namakomik>"+nama_komik+"</namakomik><namauser>"+nama_user+"</namauser><hal>"+link+"</hal></data>",
+                                                    contentType: "text/xml",
+                                                    dataType: "text",
+                                                    success: function(res){
+                                                        $(".fa-heart").css("color", "red");
+                                                    }
+                                                });
+                                            });
+                                             </script>';
+                                         }
+
                                   }else{
                                   echo "<script>
                                   $('#like').click(function(){
                                     alert('Login Terlebih dahulu jika ingin menyukai komik ini.');
+                                  });
+                                  $('#wish').click(function(){
+                                    alert('Login Terlebih dahulu jika ingin menyimpan wishlist komik ini.');
                                   });
                                   </script>";                                  
                                   }?>
