@@ -75,7 +75,7 @@ $html = file_get_html($_GET['g']);
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a href="http://localhost/proyek/account/index.php" class="dropdown-item btn btn-dark">Profile</a>
-                        <a href="" class="dropdown-item btn btn-dark">Favorite</a>
+                        <a href="http://localhost/proyek/account/fav.php" class="dropdown-item btn btn-dark">Favorite</a>
                         <a href="http://localhost/proyek/account/change-password.php" class="dropdown-item btn">Change Password</a>
                         <a href="http://localhost/proyek/account/logout.php" class="dropdown-item btn">Sign Out</a>
                     </div>

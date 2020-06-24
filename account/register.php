@@ -1,10 +1,15 @@
 <?php
+// Include config file
 require_once "database.php";
+ 
+// Define variables and initialize with empty values
 $username = $userid = $password = $confirm_password = "";
 $username_err = $userid_err = $password_err = $confirm_password_err = "";
-
+ 
+// Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
+    // Validate username
     if(empty(trim($_POST["username"]))){
         $userid_err = "Please enter a username.";
     } elseif(strlen(trim($_POST["username"])) < 6 || strlen(trim($_POST["username"])) > 20){
@@ -98,11 +103,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                  <strong>Registrasi Berhasil!</strong> Silahkan login disini : <a href="http://localhost/proyek/account/login.php">Login</a>
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>';
+                <strong>Registrasi Berhasil!</strong> Silahkan login disini : <a href="http://localhost/proyek/account/login.php">Login</a>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>';
             } else{
                 echo "Something went wrong. Please try again later.";
             }
@@ -124,98 +129,65 @@ function test_input($data){
 }
 
 ?>
-
+ 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
-    <!-- CSS only -->
+    <title>Register</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-    <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <style type="text/css">
-        body {
-            margin: 0 px;
-            background-color: black;
+        html, body { 
+            width:100%;
+            height: 100%;
         }
-
-        #active-page {
-            font-weight: bold;
+        body{ font: 14px sans-serif; }
+        .bg{
+            background-image: url("uploads/background2.jpg");
+            background-size: cover;
+            box-shadow: inset 120px 100px 250px #000000, inset -120px -100px 250px #000000;
         }
-
-        .wrapper {
-            width: 350px;
-            padding-top: 3%;
-            color: white;
-            margin: 0 auto;
-        }
+        .wrapper{ margin-left: 30%; margin-top: 10%; width: 40%; }
     </style>
 </head>
+<body class="bg">
+<?php require_once('../navbar/navbar'); ?>
 
-<body>
-    <!--NavBar-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item disabled">
-                    <div class="navbar-brand">Wibu Comic</div>
-                </li>
-                <li class="nav-item active">
-                    <a class="navbar-brand" href="../index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="#">Genre</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="../topmanga.php" >Top Manga of All Time</a>
-                </li>
-            </ul>
+    <div class="container" style="text-align:center; color:white;">
+        <div class="wrapper">
+            <h2>Sign Up</h2>
+            <p>Please fill this form to create an account.</p>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                    <label>Name</label>
+                    <input type="text" name="name" class="form-control" value="<?php echo $username; ?>">
+                    <span class="help-block"><?php echo $username_err; ?></span>
+                </div>    
+                <div class="form-group <?php echo (!empty($userid_err)) ? 'has-error' : ''; ?>">
+                    <label>Username or ID</label>
+                    <input type="text" name="username" class="form-control" value="<?php echo $userid; ?>">
+                    <span class="help-block"><?php echo $userid_err; ?></span>
+                </div>
+                <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
+                    <span class="help-block"><?php echo $password_err; ?></span>
+                </div>
+                <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
+                    <label>Confirm Password</label>
+                    <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
+                    <span class="help-block"><?php echo $confirm_password_err; ?></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                </div>
+                <p>Already have an account? <a href="login.php" style="color:white;">Login here</a>.</p>
+            </form>
         </div>
-        </div>
-    </nav>
-
-
-    <div class="wrapper">
-        <h2>Sign Up</h2>
-        <p>Please fill this form to create an account.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                <label>Name</label>
-                <input type="text" name="name" class="form-control" value="<?php echo $username; ?>">
-                <span class="help-block"><?php echo $username_err; ?></span>
-            </div>
-            <div class="form-group <?php echo (!empty($userid_err)) ? 'has-error' : ''; ?>">
-                <label>Username or ID</label>
-                <input type="text" name="username" class="form-control" value="<?php echo $userid; ?>">
-                <span class="help-block"><?php echo $userid_err; ?></span>
-            </div>
-            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
-                <span class="help-block"><?php echo $password_err; ?></span>
-            </div>
-            <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
-                <span class="help-block"><?php echo $confirm_password_err; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
-                <input type="reset" class="btn btn-secondary" value="Reset">
-            </div>
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
-        </form>
     </div>
 </body>
-
 </html>

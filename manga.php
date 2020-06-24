@@ -2,23 +2,16 @@
 session_start();
 require('account/database.php');
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    $login='y';
-    $val=$_SESSION["name"];
+    $login = 'y';
+    $val = $_SESSION["name"];
     //get id user
     $id_user = mysqli_query($link, "SELECT id FROM `account_user` WHERE '$val' = user_name");
     $id_user = mysqli_fetch_array($id_user)[0];
-    $checklike = mysqli_query($link, "SELECT like_status FROM account_user INNER JOIN account_like ON account_user.id=account_like.id_account WHERE $id_user =id");
-    $checklike = mysqli_fetch_array($checklike)[0];
-    $checkwish = mysqli_query($link, "SELECT wish_status FROM account_user INNER JOIN account_wishlist ON account_user.id=account_wishlist.id_account WHERE $id_user =id");
-    $checkwish = mysqli_fetch_array($checkwish)[0];
-}else{
-    $login='n';
+} else {
+    $login = 'n';
 }
 include('simple_html_dom.php');
-
 $html = file_get_html($_GET['manga']);
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,45 +26,74 @@ $html = file_get_html($_GET['manga']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weebu Comic</title>
     <script>
+        $(".fa-heart").css("color", "red");
+
+        function reloadData() {
+            var j = $.ajax({
+                type: "GET",
+                data: {
+                    n: window.location.href
+                },
+                url: "account/checkmanga.php",
+                dataType: "text",
+                async: false
+            });
+            return j.responseText;
+        }
     </script>
     <style>
-        body {margin: 0 px;}
+        body {
+            margin: 0 px;
+        }
+
         .card {
             margin: 0 auto;
             float: none;
             margin-bottom: 10px;
         }
+
         .card-body>img {
             max-height: 40%;
             max-width: 40%;
         }
-        .chaptername {float: left;}
-        .uploaded {float: right;}
+
+        .chaptername {
+            float: left;
+        }
+
+        .uploaded {
+            float: right;
+        }
+
         td {
             overflow: hidden;
             padding: 0;
         }
+
         #fixed_header {
             display: block;
             width: 100%;
             overflow: auto;
             height: 500px;
         }
+
         .fa {
             font-size: 36px;
             padding: 10px;
         }
     </style>
-    
+
 </head>
 
 <body style="background-color: black;">
-    <?php 
-        if ($login=='y') {
-            require('navbar/navlogin');
-        }else{
-            require('navbar/navbar');
-        }?>
+
+    <?php
+    if ($login == 'y') {
+        require('navbar/navlogin');
+    } else {
+        require('navbar/navbar');
+    } ?>
+
     <!-- main page -->
     <div style="margin: 5em;">
         <div class="card">
@@ -82,32 +104,32 @@ $html = file_get_html($_GET['manga']);
                 <div class="col-md-auto">
                     <?php foreach ($html->find('div.story-info-right') as $element) { ?>
                         <div class="card-body">
-                            <h3 class="card-title"><?php echo $element->children(0)->plaintext.'</h3>';
-                                if (is_null($element->children(1)->first_child()->children(3))) {
-                                    echo '<table>';
-                                    echo '<tr>';
-                                    echo '<th>Author(s): ' . $element->children(1)->first_child()->children(0)->last_child()->plaintext . '</th>';
-                                    echo '</tr>';
-                                    echo '<tr>';
-                                    echo '<th>Status :' . $element->children(1)->first_child()->children(1)->last_child()->plaintext . '</th>';
-                                    echo '</tr>';
-                                    echo '<tr>';
-                                    echo '<th>Genres:' . $element->children(1)->first_child()->children(2)->last_child()->plaintext . '</th>';
-                                    echo '</tr>';
-                                } else {
-                                    echo '<table>';
-                                    echo '<tr>';
-                                    echo '<th>Author(s): ' . $element->children(1)->first_child()->children(1)->last_child()->plaintext . '</th>';
-                                    echo '</tr>';
-                                    echo '<tr>';
-                                    echo '<th>Status :' . $element->children(1)->first_child()->children(2)->last_child()->plaintext . '</th>';
-                                    echo '</tr>';
-                                    echo '<tr>';
-                                    echo '<th>Genres:' . $element->children(1)->first_child()->children(3)->last_child()->plaintext . '</th>';
-                                    echo '</tr>';
-                                }
-                            }
-                            foreach ($html->find('div.story-info-right-extent') as $element) { ?>
+                            <h3 class="card-title"><?php echo $element->children(0)->plaintext . '</h3>';
+                                                    if (is_null($element->children(1)->first_child()->children(3))) {
+                                                        echo '<table>';
+                                                        echo '<tr>';
+                                                        echo '<th>Author(s): ' . $element->children(1)->first_child()->children(0)->last_child()->plaintext . '</th>';
+                                                        echo '</tr>';
+                                                        echo '<tr>';
+                                                        echo '<th>Status :' . $element->children(1)->first_child()->children(1)->last_child()->plaintext . '</th>';
+                                                        echo '</tr>';
+                                                        echo '<tr>';
+                                                        echo '<th>Genres:' . $element->children(1)->first_child()->children(2)->last_child()->plaintext . '</th>';
+                                                        echo '</tr>';
+                                                    } else {
+                                                        echo '<table>';
+                                                        echo '<tr>';
+                                                        echo '<th>Author(s): ' . $element->children(1)->first_child()->children(1)->last_child()->plaintext . '</th>';
+                                                        echo '</tr>';
+                                                        echo '<tr>';
+                                                        echo '<th>Status :' . $element->children(1)->first_child()->children(2)->last_child()->plaintext . '</th>';
+                                                        echo '</tr>';
+                                                        echo '<tr>';
+                                                        echo '<th>Genres:' . $element->children(1)->first_child()->children(3)->last_child()->plaintext . '</th>';
+                                                        echo '</tr>';
+                                                    }
+                                                }
+                                                foreach ($html->find('div.story-info-right-extent') as $element) { ?>
                                 </tr>
                                 <tr>
                                     <th>First Chapter: <?php echo $element->children(2)->last_child()->plaintext; ?></th>
@@ -116,95 +138,127 @@ $html = file_get_html($_GET['manga']);
                                     <th>Last Chapter: <?php echo $element->children(3)->last_child()->plaintext; ?></th>
                                 </tr> <?php } ?>
                             <tr>
-                            <form method="post">
-                            <th><span><i class="fa fa-heart btn" id="wish" name="wish"></i></span><span><i class="fa fa-thumbs-o-up btn" id="like"></i></span></th>
-                            </form>
-                        </tr>
-                                <!-- Like & wish -->
-                                <?php
-                                if ($login=='y'){
-                                        if($checklike == TRUE){
-                                            echo '<script>
-                                            $(".fa-thumbs-o-up").css("color", "red");
-                                            $("#like").click(function(){
-                                                var id_user = "'.$id_user.'";
-                                                $.ajax({
-                                                    type:"POST",
-                                                    url: "account/unlike.php",
-                                                    data: "<data><namauser>"+id_user+"</namauser></data>",
-                                                    contentType: "text/xml",
-                                                    dataType: "text",
-                                                    success: function(res){
-                                                        alert("SUKSES DISLIKE");
-                                                        $(".fa-thumbs-o-up").css("color", "dark");
-                                                    }
-                                                });
-                                            });</script>';
-                                        }else{
-                                            echo '<script> $("#like").click(function(){
-                                                var nama_komik = $(".card-title").text();
-                                                var nama_user = "'.$_SESSION["name"].'";
-                                                $.ajax({
-                                                    type:"POST",
-                                                    url: "account/like.php",
-                                                    data: "<data><namakomik>"+nama_komik+"</namakomik><namauser>"+nama_user+"</namauser></data>",
-                                                    contentType: "text/xml",
-                                                    dataType: "text",
-                                                    success: function(res){
-                                                        alert("SUKSES LIKE");
-                                                        $(".fa-thumbs-o-up").css("color", "red");
-                                                    }
-                                                });
-                                            });
-                                            </script>';
-                                        }
+                                <form method="post">
+                                    <th><span><i class="fa fa-heart btn" style="color: red;" id="wish" name="wish"></i>
+                                            <p id="pesan"></p>
+                                        </span><span><i class="fa fa-thumbs-o-up btn" id="like"></i>
+                                            <p id="pesanlike"></p>
+                                        </span></th>
 
-                                        //wishlist
-                                        if($checkwish == TRUE){
-                                            echo '<script>
-                                            $(".fa-heart").css("color", "red");
-                                            $("#wish").click(function(){
-                                                var id_user = "'.$id_user.'";
-                                                $.ajax({
-                                                    type:"POST",
-                                                    url: "account/unwish.php",
-                                                    data: "<data><namauser>"+id_user+"</namauser></data>",
-                                                    contentType: "text/xml",
-                                                    dataType: "text",
-                                                    success: function(res){
-                                                        $(".fa-heart").css("color", "dark");
-                                                    }
-                                                });
-                                            });</script>';
-                                        }else{
-                                            echo '<script> $("#wish").click(function(){
-                                                var nama_komik = $(".card-title").text();
-                                                var nama_user = "'.$_SESSION["name"].'";
-                                                var link = window.location.href;
-                                                $.ajax({
-                                                    type:"POST",
-                                                    url: "account/wishlist.php",
-                                                    data: "<data><namakomik>"+nama_komik+"</namakomik><namauser>"+nama_user+"</namauser><hal>"+link+"</hal></data>",
-                                                    contentType: "text/xml",
-                                                    dataType: "text",
-                                                    success: function(res){
-                                                        $(".fa-heart").css("color", "red");
-                                                    }
-                                                });
-                                            });
-                                             </script>';
-                                         }
+                                </form>
+                            </tr>
+                            <script>
+                                var y = $(".card-title").text();
 
-                                  }else{
-                                  echo "<script>
+                                function reloadlike() {
+                                    var k = $.ajax({
+                                        type: "GET",
+                                        data: {
+                                            m: y
+                                        },
+                                        url: "account/checklike.php",
+                                        dataType: "text",
+                                        async: false
+                                    });
+                                    return k.responseText;
+                                }
+
+                                if (reloadlike() == '1') {
+                                    $("#pesanlike").text("Liked");
+                                    $("#like").click(function() {
+                                        var id_user = '<?php echo $id_user; ?>';
+                                        var nama_komik = $(".card-title").text();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "account/unlike.php",
+                                            data: "<data><iduser>" + id_user + "</iduser><namakomik>" + nama_komik + "</namakomik></data>",
+                                            contentType: "text/xml",
+                                            dataType: "text",
+                                            success: function(res) {
+                                                alert("Unlike sukses");
+                                                $("#pesanlike").html("Do you like this manga?");
+                                                reloadlike();
+                                            }
+                                        });
+                                    })
+                                } else {
+                                    $("#pesanlike").text("Do you like this manga?");
+                                    $("#like").click(function() {
+                                        var id_user = '<?php echo $id_user; ?>';
+                                        var nama_komik = $(".card-title").text();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "account/like.php",
+                                            data: "<data><iduser>" + id_user + "</iduser><namakomik>" + nama_komik + "</namakomik></data>",
+                                            contentType: "text/xml",
+                                            dataType: "text",
+                                            success: function(res) {
+                                                alert("like sukses");
+                                                $("#pesanlike").html("Liked");
+                                                reloadlike();
+                                            }
+                                        });
+                                    })
+                                }
+                                //WISHLIST
+                                if (reloadData() == '1') {
+                                    $("#pesan").text("Berada di Wishlist");
+                                    $("#wish").click(function() {
+                                        var id_user = '<?php echo $id_user; ?>';
+                                        var nama_komik = $(".card-title").text();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "account/unwish.php",
+                                            data: "<data><namauser>" + id_user + "</namauser><namakomik>" + nama_komik + "</namakomik></data>",
+                                            contentType: "text/xml",
+                                            dataType: "text",
+                                            success: function(res) {
+                                                alert("batal wishlist sukses");
+                                                $("#pesan").html("Belum di Wishlist");
+                                                reloadData();
+                                            }
+                                        });
+                                    })
+
+                                } else {
+                                    $("#pesan").text("Belum Di Wishlist");
+                                    $("#wish").click(function(e) {
+                                        var nama_komik = $(".card-title").text();
+                                        var nama_user = '<?php echo $_SESSION["name"]; ?>';
+                                        var link = window.location.href;
+                                        e.preventDefault();
+                                        alert(nama_komik);
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "account/wishlist.php",
+                                            data: "<data><namakomik>" + nama_komik + "</namakomik><namauser>" + nama_user + "</namauser><hal>" + link + "</hal></data>",
+                                            contentType: "text/xml",
+                                            dataType: "text",
+                                            success: function(res) {
+                                                alert("wishlist sukses");
+                                                $("#pesan").html("Wishlished");
+                                                reloadData();
+                                            }
+                                        });
+                                    });
+                                    $(document).ready(function() {
+                                        reloadData();
+                                        reloadlike();
+                                    });
+                                }
+                            </script>
+                            <?php
+                            if ($login != 'y') {
+                                echo "<script>
                                   $('#like').click(function(){
                                     alert('Login Terlebih dahulu jika ingin menyukai komik ini.');
                                   });
                                   $('#wish').click(function(){
                                     alert('Login Terlebih dahulu jika ingin menyimpan wishlist komik ini.');
                                   });
-                                  </script>";                                  
-                                  }?>
+                                  </script>";
+                            }
+                            ?>
                             </table>
                         </div>
                 </div>

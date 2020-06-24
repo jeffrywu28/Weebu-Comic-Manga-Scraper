@@ -5,18 +5,12 @@
   if($postData){
     $dataxml = simplexml_load_string($postData);
 
-    $nama_komik=$dataxml->namakomik;
-    $id_user=$dataxml->iduser;
-
-    $q="INSERT INTO account_like VALUES(0, $id_user,'$nama_komik',TRUE)";
+    $id=$dataxml->id;
     
-    $result=mysqli_query($con, $q);
+    $result=mysqli_query($con, "DELETE FROM `account_wishlist` WHERE account_wishlist.id_wishlist= $id");
 
     if($result){
       echo "Sukses";
-    }else
-    {
-      die(mysqli_error($con));
     }
- }
+  }
 ?>
